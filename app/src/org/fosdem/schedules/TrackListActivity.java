@@ -77,7 +77,7 @@ public class TrackListActivity extends SherlockListActivity implements OnNavigat
 		Log.d(LOG_TAG, "Track selected: " + track.getName());
 
 		Intent i = new Intent(this, EventListActivity.class);
-		i.putExtra(EventListActivity.TRACK_NAME, track.getName());
+		i.putExtra(EventListActivity.GROUP_ITEM_NAME, track.getName());
 		i.putExtra(EventListActivity.DAY_INDEX, dayIndex);
 		startActivity(i);
 	}

@@ -7,9 +7,11 @@ import org.fosdem.R;
 import org.fosdem.broadcast.FavoritesBroadcast;
 import org.fosdem.db.DBAdapter;
 import org.fosdem.pojo.Event;
+import org.fosdem.pojo.Room;
 import org.fosdem.pojo.Track;
 import org.fosdem.util.EventAdapter;
 import org.fosdem.util.TrackAdapter;
+import org.fosdem.util.RoomAdapter;
 
 import com.actionbarsherlock.app.ActionBar;
 import com.actionbarsherlock.app.ActionBar.OnNavigationListener;
@@ -26,6 +28,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.AbsListView;
+import android.widget.SpinnerAdapter;
 import android.widget.AbsListView.OnScrollListener;
 import android.widget.AdapterView;
 
@@ -41,13 +44,15 @@ public class EventListActivity extends SherlockActivity  implements OnScrollList
 
 	public static final String LOG_TAG = EventListActivity.class.getName();
 
+	public static final String GROUP_BY_ROOM = "groupByRoom";
+	public static final String GROUP_ITEM_NAME = "groupItemName";
 	public static final String DAY_INDEX = "dayIndex";
-	public static final String TRACK_NAME = "trackName";
 	public static final String QUERY = "query";
 	public static final String FAVORITES = "favorites";
 
 	private ArrayList<Event> events = null;
-	private String trackName = null;
+	private boolean isGroupedByRoom = false;
+	private String groupItemName = null;
 	private int dayIndex = 0;
 	private String query = null;
 	private Boolean favorites = null;
@@ -56,8 +61,7 @@ public class EventListActivity extends SherlockActivity  implements OnScrollList
 	private static final String KEY_LIST_POSITION = "KEY_LIST_POSITION";
 	private int firstVisible;
 	private StickyListHeadersListView stickyList;
-	private TrackAdapter trackAdapter;
-
+	private SpinnerAdapter spinAdapter;
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -73,18 +77,19 @@ public class EventListActivity extends SherlockActivity  implements OnScrollList
 			firstVisible = savedInstanceState.getInt(KEY_LIST_POSITION);
 		}
 
-		trackName = savedInstanceState != null ? savedInstanceState.getString(TRACK_NAME) : null;
+		groupItemName = savedInstanceState != null ? savedInstanceState.getString(GROUP_ITEM_NAME) : null;
 
 		// what room should we show? fetch from the parameters
 		Bundle extras = getIntent().getExtras();
-		if (trackName == null && query == null && extras != null) {
-			trackName = extras.getString(TRACK_NAME);
+		if (groupItemName == null && query == null && extras != null) {
+			isGroupedByRoom = extras.getBoolean(GROUP_BY_ROOM);
+			groupItemName = extras.getString(GROUP_ITEM_NAME);
 			dayIndex = extras.getInt(DAY_INDEX);
 			favorites = extras.getBoolean(FAVORITES);
 			query = extras.getString(QUERY);
 		}
-		if (trackName != null && dayIndex != 0)
-			setTitle(trackName);
+		if (groupItemName != null && dayIndex != 0)
+			setTitle(groupItemName);
 		if (query != null)
 			setTitle("Search for: " + query);
 		if (favorites != null && favorites)
@@ -102,16 +107,22 @@ public class EventListActivity extends SherlockActivity  implements OnScrollList
 		ActionBar actionBar = getSupportActionBar();
 
 		// show action bar list navigation in track mode
-		if (trackName != null && dayIndex != 0) {
-			ArrayList<Track> tracksForDayIndex = getTracks(dayIndex);
-			trackAdapter = new TrackAdapter(this, R.layout.sherlock_spinner_item,
-				android.R.id.text1, tracksForDayIndex);
-			trackAdapter.setDropDownViewResource(R.layout.spinner_dropdown_item);
-
+		if (groupItemName != null && dayIndex != 0) {
+			if(isGroupedByRoom) {
+				ArrayList<Room> roomsForDayIndex = getRooms(dayIndex);
+				spinAdapter = new RoomAdapter(this, R.layout.sherlock_spinner_item,
+					android.R.id.text1, roomsForDayIndex);
+			} else
+			{
+				ArrayList<Track> tracksForDayIndex = getTracks(dayIndex);
+				spinAdapter = new TrackAdapter(this, R.layout.sherlock_spinner_item,
+					android.R.id.text1, tracksForDayIndex);
+			}
+			
 			actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_LIST);
 			actionBar.setDisplayShowTitleEnabled(false);
-			actionBar.setListNavigationCallbacks(trackAdapter, this);
-			actionBar.setSelectedNavigationItem(trackAdapter.getPositionOfTrack(trackName));
+			actionBar.setListNavigationCallbacks(spinAdapter, this);
+			actionBar.setSelectedNavigationItem(0);//spinAdapter.getPositionOfTrack(groupItemName));
 		}
 
 		actionBar.setDisplayHomeAsUpEnabled(true);
@@ -130,9 +141,15 @@ public class EventListActivity extends SherlockActivity  implements OnScrollList
 
 	public boolean onNavigationItemSelected(int position, long itemId) {
 		// spinner navigation between tracks in track mode
-		Track track = trackAdapter.getItem(position);
-		trackName = track.getName();
-		setTitle(trackName);
+		if(isGroupedByRoom) {
+			Room room = (Room) spinAdapter.getItem(position);
+			groupItemName = room.getName();
+		} else {
+			Track track = (Track) spinAdapter.getItem(position);
+			groupItemName = track.getName();
+		}
+
+		setTitle(groupItemName);
 		events = getEventList(favorites);
 		eventAdapter.clear();
 		//eventAdapter.addAll(events); // note: addAll is only available starting with API 11
@@ -179,7 +196,7 @@ public class EventListActivity extends SherlockActivity  implements OnScrollList
 	 */
 	private ArrayList<Event> getEventList(Boolean favoritesOnly) {
 
-		if (query == null && trackName == null && (favoritesOnly == null || !favoritesOnly)) {
+		if (query == null && groupItemName == null && (favoritesOnly == null || !favoritesOnly)) {
 			Log.e(LOG_TAG, "You are loading this class with no valid room parameter");
 			return null;
 		}
@@ -189,8 +206,12 @@ public class EventListActivity extends SherlockActivity  implements OnScrollList
 		try {
 			db.open();
 
-			if (trackName != null) {
-				return (ArrayList<Event>) db.getEventsByTrackNameAndDayIndex(trackName, dayIndex);
+			if (groupItemName != null) {
+				if(isGroupedByRoom) {
+					return (ArrayList<Event>) db.getEventsByRoomNameAndDayIndex(groupItemName, dayIndex);
+				} else {
+					return (ArrayList<Event>) db.getEventsByTrackNameAndDayIndex(groupItemName, dayIndex);
+				}
 			} else if (query != null) {
 				String[] queryArgs = new String[] { query };
 				return (ArrayList<Event>) db.getEventsFilteredLike(null, null,
@@ -204,8 +225,11 @@ public class EventListActivity extends SherlockActivity  implements OnScrollList
 
 				return db.getFavoriteEvents(startDate);
 			}
-
-			return (ArrayList<Event>) db.getEventsByTrackNameAndDayIndex(trackName, dayIndex);
+			if(isGroupedByRoom) {
+				return (ArrayList<Event>) db.getEventsByRoomNameAndDayIndex(groupItemName, dayIndex);
+			} else {
+				return (ArrayList<Event>) db.getEventsByTrackNameAndDayIndex(groupItemName, dayIndex);
+			}
 		} finally {
 			db.close();
 		}
@@ -223,6 +247,23 @@ public class EventListActivity extends SherlockActivity  implements OnScrollList
 				tracks.add(new Track(trackName));
 			}
 			return tracks;
+		} finally {
+			db.close();
+		}
+	}
+	
+	private ArrayList<Room> getRooms(int dayIndex) {
+		// Load track list with specified day index from db
+		// TODO: this was partly duplicated from TrackListActivity and should get refactored.
+		final DBAdapter db = new DBAdapter(this);
+		try {
+			db.open();
+			String[] roomNames = db.getRoomsByDayIndex(dayIndex);
+			ArrayList<Room> rooms = new ArrayList<Room>();
+			for (String roomName : roomNames) {
+				rooms.add(new Room(roomName));
+			}
+			return rooms;
 		} finally {
 			db.close();
 		}

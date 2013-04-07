@@ -2,8 +2,7 @@ package org.fosdem.util;
 
 import java.util.ArrayList;
 
-import org.fosdem.R;
-import org.fosdem.pojo.Track;
+import org.fosdem.pojo.Room;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -15,18 +14,20 @@ import android.widget.TextView;
 
 /**
  * @author Christophe Vandeplas <christophe@vandeplas.com>
+ * @author Chris Kühl <chris@endocode.com>
  *
  */
-public class TrackAdapter extends ArrayAdapter<Track> implements SpinnerAdapter {
+public class RoomAdapter extends ArrayAdapter<Room> implements SpinnerAdapter {
 
 	private int layoutResourceId;
 	private int textViewResourceId;
-	private ArrayList<Track> items;
+	private ArrayList<Room> items;
+	private int dropDownResourceId;
 
-	public TrackAdapter(Context context, int layoutResourceId, int textViewResourceId, ArrayList<Track> items) {
+	public RoomAdapter(Context context, int layoutResourceId, int textViewResourceId, ArrayList<Room> items) {
 		super(context, layoutResourceId, textViewResourceId, items);
-		
 		this.layoutResourceId = layoutResourceId;
+		this.dropDownResourceId = layoutResourceId;
 		this.textViewResourceId = textViewResourceId;
 		this.items = items;
 	}
@@ -38,17 +39,20 @@ public class TrackAdapter extends ArrayAdapter<Track> implements SpinnerAdapter 
 			v = LayoutInflater.from(getContext()).inflate(layoutResourceId, null);
 		}
 
-		Track track = items.get(position);
-		if (track != null) {
+		Room room = items.get(position);
+		if (room != null) {
 			TextView title = (TextView) v.findViewById(textViewResourceId);
-			title.setText(track.getName());
-			TextView type = (TextView) v.findViewById(R.id.type);
-			if (type != null) {
-				type.setText(track.getType());
-			}
+			title.setText(room.getName());
 		}
 
 		return v;
+	}
+
+	/**
+	 * Sets the layout resource to create the drop down views.
+	 */
+	public void setDropDownViewResource(int resource) {
+		this.dropDownResourceId = resource;
 	}
 
 	@Override
@@ -56,23 +60,23 @@ public class TrackAdapter extends ArrayAdapter<Track> implements SpinnerAdapter 
 		// returns a dropdown view if used as SpinnerAdapter
 		View v = convertView;
 		if (v == null) {
-			v = LayoutInflater.from(getContext()).inflate(R.layout.spinner_dropdown_item, null);
+			v = LayoutInflater.from(getContext()).inflate(dropDownResourceId, null);
 		}
 
-		Track track = items.get(position);
-		if (track != null) {
+		Room room = items.get(position);
+		if (room != null) {
 			TextView title = (TextView) v.findViewById(textViewResourceId);
-			title.setText(track.getName());
+			title.setText(room.getName());
 		}
 
 		return v;
 	}
 
-	public Integer getPositionOfTrack(String trackName) {
+	public Integer getPositionOfTrack(String roomName) {
 		int i = 0;
-		
-		for (Track track : items) {
-			if (trackName.equals(track.getName())) {
+
+		for (Room room : items) {
+			if (roomName.equals(room.getName())) {
 				return i;
 			}
 			i++;

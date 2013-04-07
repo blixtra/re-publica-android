@@ -67,7 +67,9 @@
                     android:textColor="@color/event_meta_text"
                     android:layout_weight=".45"
                     android:layout_height="wrap_content"
-                    android:layout_width="0dip" />
+                    android:layout_width="0dip"
+                    android:onClick="onRoomClicked"
+                    android:clickable="true" />
 
                 <TextView
                     android:id="@+id/event_time"

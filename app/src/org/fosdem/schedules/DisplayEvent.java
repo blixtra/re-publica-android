@@ -27,6 +27,7 @@ import android.os.Handler;
 import android.os.Message;
 import android.text.Html;
 import android.util.Log;
+import android.view.View;
 import android.view.ViewConfiguration;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -301,4 +302,12 @@ public class DisplayEvent extends SherlockActivity {
 		setFavoriteActionImageResource(menuItem);
 
 	}
+	
+	public void onRoomClicked(View v) {
+		Intent i = new Intent(this, EventListActivity.class);
+		i.putExtra(EventListActivity.GROUP_BY_ROOM, true);
+		i.putExtra(EventListActivity.GROUP_ITEM_NAME, event.getRoom());
+		i.putExtra(EventListActivity.DAY_INDEX, event.getDayindex());
+		startActivity(i);
+      }
 }

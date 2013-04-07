@@ -400,8 +400,8 @@ public class DBAdapter extends ContentProvider {
 	}
 
 	public String[] getRooms() {
-		Cursor trackCursor = getRawRooms();
-		return getStringFromCursor(trackCursor, ROOM);
+		Cursor roomCursor = getRawRooms();
+		return getStringFromCursor(roomCursor, ROOM);
 	}
 
 	protected int[] getFavoriteIds(Date fromDate) {
@@ -687,6 +687,13 @@ public class DBAdapter extends ContentProvider {
 			int dayIndex) {
 		String tracks[] = { trackName };
 		return getEventsFiltered(null, null, tracks, null, null, null, null,
+				dayIndex);
+	}
+	
+	public List<Event> getEventsByRoomNameAndDayIndex(String roomName,
+			int dayIndex) {
+		String rooms[] = { roomName };
+		return getEventsFiltered(null, null, null, null, null, rooms, null,
 				dayIndex);
 	}
 
