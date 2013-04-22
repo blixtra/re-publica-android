@@ -1,6 +1,8 @@
-# FOSDEM Android app
+# Re:publica Android app
 
-This is a native Android app for using the FOSDEM schedule offline. It is available in the [Google Play Store](https://play.google.com/store/apps/details?id=org.fosdem).
+This is a fork of the [Fosdem for Android](https://github.com/rkallensee/fosdem-android/) app adapted for use at [Re:publica 13](http://re-publica.de/en).
+
+This is a native Android app for using the Re:publica schedule offline. It will soon be available in the Google Play Store.
 
 ## Features
 
@@ -9,6 +11,12 @@ This is a native Android app for using the FOSDEM schedule offline. It is availa
 * Favorites and notifications
 * Search
 * Share a session with your social network
+
+### Features this fork intends to add
+
+* View different sessions by room
+* View speaker/presenter information
+* Parsing of Re:pulica's slightly different xml format
 
 ## License
 
@@ -31,6 +39,10 @@ git pull && git submodule init && git submodule update && git submodule status
 ## To-Do
 
 * Implementation with Fragments and Tablet UI
+
+## To-Do for Re:public fork
+
+* Send applicable changes upstream
 
 ## Changelog
 
@@ -60,6 +72,10 @@ git pull && git submodule init && git submodule update && git submodule status
 
 * Christopher Orr
 * Raphael Kallensee
+
+### Re:publica fork
+
+* Chris Kühl
 
 ## Links
 
