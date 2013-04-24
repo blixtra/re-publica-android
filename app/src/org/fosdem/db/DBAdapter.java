@@ -141,7 +141,7 @@ public class DBAdapter extends ContentProvider {
 	}
 
 	// DB Related
-	protected static final String DB_NAME = "fosdem_schedule";
+	protected static final String DB_NAME = "republica_schedule";
 	protected static final String TABLE_EVENTS = "events";
 	protected static final String TABLE_PERSONS = "persons";
 	protected static final String TABLE_JOIN_PERSON_EVENT = "person_event";

@@ -2,7 +2,7 @@
 
 <resources>
     <string name="hello">Hello World, Main!</string>
-    <string name="app_name">FOSDEM</string>
+    <string name="app_name">Re:publica</string>
 
     <!-- action bar -->
     <string name="menu_favorites">Favorites</string>
@@ -15,22 +15,24 @@
     <string name="menu_share">Share</string>
 
     <!-- main view -->
-    <string name="main_saturday">Saturday</string>
-    <string name="main_sunday">Sunday</string>
+    <string name="main_monday">Monday</string>
+    <string name="main_tuesday">Tuesday</string>
+    <string name="main_wednesday">Wednesday</string>
     <string name="main_favorites">Favorites</string>
     <string name="main_search">Search</string>
 
     <string name="search_label">Search</string>
-    <string name="settings_description">FOSDEM search</string>
+    <string name="settings_description">Re:publica search</string>
     <string name="menu_test_display_event">Display event</string>
     <string name="menu_prefetch_rooms">Prefetch Maps</string>
     <string name="synchronize_button">Synchronize</string>
     <string name="synchronize_title">Synchronize</string>
-    <string name="synchronize_description">Synchronizes the schedule with the one from FOSDEM online.\n\nYou need a connection to the Internet for this to work.</string>
+    <string name="synchronize_description">Synchronizes the schedule with the one from Re:publica online.\n\nYou need a connection to the Internet for this to work.</string>
     <string name="db_ver">Database last updated:</string>
-    <string name="about_text1">FOSDEM Schedule application</string>
+    <string name="about_text1">Re:publica Schedule application</string>
     <string name="about_text2">Programmed by:\nMichaël Uyttersprot, Pieter Iserbyt and Christophe Vandeplas. Contributors: Christopher Orr and Raphael Kallensee.</string>
-    <string name="about_text3">Licensed under GPL. Source available at https://github.com/rkallensee/fosdem-android. The FOSDEM logo and picture are licensed under a CC-BY-SA 2.0 Belgium License.</string>
+    <string name="about_text1">Adapted for Re:publica by Chris Kühl and Endocode AG</string>
+    <string name="about_text3">Licensed under GPL. Source available at https://github.com/blixtra/re-publica-android. The Re:publica logo and other artwork are licensed under a TBD license.</string>
     <string name="favorites">Favorites</string>
     <string name="favorites_event_removed">Event removed from favorites</string>
     <string name="favorites_event_added">Event added to favorites</string>
@@ -42,8 +44,9 @@
     </string-array>
 
     <!-- event list -->
-    <string name="eventlist_header_saturday">Saturday (Day 1)</string>
-    <string name="eventlist_header_sunday">Sunday (Day 2)</string>
+    <string name="eventlist_header_monday">Monday (Day 1)</string>
+    <string name="eventlist_header_tuesday">Tuesday (Day 2)</string>
+    <string name="eventlist_header_wednesday">Wednesday (Day 3)</string>
 
     <!-- settings -->
     <string name="settings_category_notifications">Notifications</string>
