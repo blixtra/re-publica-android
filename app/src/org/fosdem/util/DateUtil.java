@@ -19,4 +19,8 @@ public class DateUtil {
 		return Integer.parseInt(minutes.substring(0, 2)) * 60
 				+ Integer.parseInt(minutes.substring(3, 5));
 	}
+
+	public static int convertHumanReadableTimeToMinutes(String minutes) {
+		return Integer.parseInt(minutes.substring(0, 2));
+	}
 }

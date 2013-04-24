@@ -292,7 +292,8 @@ public class DBAdapter extends ContentProvider {
 		initialValues.put(ABSTRACT, event.getAbstract_description());
 		initialValues.put(DESCRIPTION, event.getDescription());
 		initialValues.put(DAYINDEX, event.getDayindex());
-		initialValues.put(PERSONSEARCH, event.getPersons().toString());
+		if(!event.getPersons().isEmpty())
+			initialValues.put(PERSONSEARCH, event.getPersons().toString());
 		return db.insert(TABLE_EVENTS, null, initialValues);
 	}
 

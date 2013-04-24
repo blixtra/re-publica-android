@@ -20,7 +20,11 @@ import org.xmlpull.v1.XmlPullParser;
 import org.xmlpull.v1.XmlPullParserException;
 import org.xmlpull.v1.XmlPullParserFactory;
 
+import android.annotation.TargetApi;
+import android.os.Build;
+
 //TODO eMich - persons and links need to be added to the parser.
+@TargetApi(Build.VERSION_CODES.GINGERBREAD)
 public class ScheduleParser extends BaseParser {
 
 	public static final String LOGTAG = ScheduleParser.class.getName();
@@ -47,7 +51,7 @@ public class ScheduleParser extends BaseParser {
 	public static final String NAME = "name";
 
 	// Event
-	public static final String EVENT = "event";
+	public static final String EVENT = "session";
 	public static final String ID = "id";
 	public static final String DURATION = "duration";
 	public static final String TAG = "tag";
@@ -239,7 +243,8 @@ public class ScheduleParser extends BaseParser {
 					event.setStart(d);
 					event.setDayindex(day.getIndex());
 				} else if (xpp.getName().equals(DURATION)) {
-					event.setDuration(DateUtil.convertStringToMinutes(content));
+					event.setDuration(DateUtil
+							.convertHumanReadableTimeToMinutes(content));
 				} else if (xpp.getName().equals(ROOM)) {
 					event.setRoom(content);
 				} else if (xpp.getName().equals(TAG)) {
@@ -282,7 +287,13 @@ public class ScheduleParser extends BaseParser {
 					int id = 0;
 					for (int i = 0; i < xpp.getAttributeCount(); i++) {
 						if (xpp.getAttributeName(i).equals(ID)) {
-							id = Integer.parseInt(xpp.getAttributeValue(i));
+							// Deal with empty ids in person tag
+							String idStr = xpp.getAttributeValue(i);
+							if(!idStr.isEmpty()) {
+								id = Integer.parseInt(idStr);
+							} else {
+								return persons;
+							}
 						}
 					}
 					person.setId(id);
