@@ -96,9 +96,6 @@ public class ScheduleParser extends BaseParser {
 
 			xpp.setInput(stream, "UTF-8");
 
-			@SuppressWarnings("unused")
-			String content = null;
-
 			int eventType = xpp.getEventType();
 			while (eventType != XmlPullParser.END_DOCUMENT) {
 				if (eventType == XmlPullParser.START_TAG) {
@@ -142,7 +139,6 @@ public class ScheduleParser extends BaseParser {
 						e.setId(id);
 						room.addEvent(e);
 					}
-					content = null;
 				} else if (eventType == XmlPullParser.END_TAG) {
 					launchEvent(xpp.getName(), ParserEventListener.TAG_CLOSED);
 					if (xpp.getName().equals(DAY)) {
@@ -157,8 +153,6 @@ public class ScheduleParser extends BaseParser {
 						events.add(event);
 						event = null;
 					}
-				} else if (eventType == XmlPullParser.TEXT) {
-					content = xpp.getText();
 				}
 				eventType = xpp.next();
 			}
@@ -212,7 +206,6 @@ public class ScheduleParser extends BaseParser {
 
 	public Event parseEvent(XmlPullParser xpp, Day day)
 			throws XmlPullParserException, IOException, ParseException {
-		// Log.v(getClass().getName(),day.getDate().toString());
 		String content = null;
 		int eventType = xpp.getEventType();
 		Event event = new Event();
