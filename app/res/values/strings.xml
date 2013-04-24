@@ -15,9 +15,9 @@
     <string name="menu_share">Share</string>
 
     <!-- main view -->
-    <string name="main_monday">Monday</string>
-    <string name="main_tuesday">Tuesday</string>
-    <string name="main_wednesday">Wednesday</string>
+    <string name="main_monday">Mon</string>
+    <string name="main_tuesday">Tues</string>
+    <string name="main_wednesday">Wed</string>
     <string name="main_favorites">Favorites</string>
     <string name="main_search">Search</string>
 
