@@ -108,7 +108,9 @@
                 android:textColor="@color/event_description_text"
                 android:paddingLeft="10dip"
                 android:paddingRight="10dip"
-                android:paddingBottom="10dip" />
+                android:paddingBottom="10dip"
+                android:autoLink="web" />
+
         </RelativeLayout>
         <ImageView
             android:id="@+id/room_image"

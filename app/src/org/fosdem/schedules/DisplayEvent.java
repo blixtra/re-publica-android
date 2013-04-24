@@ -207,7 +207,7 @@ public class DisplayEvent extends SherlockActivity {
 		setTextViewText(R.id.event_speaker, StringUtil.personsToString(event
 				.getPersons()));
 		setTextViewText(R.id.event_abstract, eventAbstract);
-		setTextViewText(R.id.event_description, eventDescription);
+		setTextViewText(R.id.event_description, Html.fromHtml(eventDescription).toString());
 
 		// setImageViewImage(R.id.room_image,
 		// StringUtil.roomNameToURL(event.getRoom()));
