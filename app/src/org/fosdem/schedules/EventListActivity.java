@@ -10,13 +10,8 @@ import org.fosdem.pojo.Event;
 import org.fosdem.pojo.Room;
 import org.fosdem.pojo.Track;
 import org.fosdem.util.EventAdapter;
-import org.fosdem.util.TrackAdapter;
 import org.fosdem.util.RoomAdapter;
-
-import com.actionbarsherlock.app.ActionBar;
-import com.actionbarsherlock.app.ActionBar.OnNavigationListener;
-import com.actionbarsherlock.app.SherlockActivity;
-import com.actionbarsherlock.view.MenuItem;
+import org.fosdem.util.TrackAdapter;
 
 import android.app.SearchManager;
 import android.content.BroadcastReceiver;
@@ -28,10 +23,14 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.AbsListView;
-import android.widget.SpinnerAdapter;
 import android.widget.AbsListView.OnScrollListener;
 import android.widget.AdapterView;
+import android.widget.SpinnerAdapter;
 
+import com.actionbarsherlock.app.ActionBar;
+import com.actionbarsherlock.app.ActionBar.OnNavigationListener;
+import com.actionbarsherlock.app.SherlockActivity;
+import com.actionbarsherlock.view.MenuItem;
 import com.emilsjolander.components.stickylistheaders.StickyListHeadersListView;
 import com.emilsjolander.components.stickylistheaders.StickyListHeadersListView.OnHeaderClickListener;
 
@@ -106,23 +105,37 @@ public class EventListActivity extends SherlockActivity  implements OnScrollList
 
 		ActionBar actionBar = getSupportActionBar();
 
+		int navItemPos = 0;
+
 		// show action bar list navigation in track mode
 		if (groupItemName != null && dayIndex != 0) {
 			if(isGroupedByRoom) {
 				ArrayList<Room> roomsForDayIndex = getRooms(dayIndex);
 				spinAdapter = new RoomAdapter(this, R.layout.sherlock_spinner_item,
 					android.R.id.text1, roomsForDayIndex);
+				for(int i = 0; i <= roomsForDayIndex.size(); i++) {
+					if(roomsForDayIndex.get(i).getName().equals(groupItemName)) {
+						navItemPos = i;
+						break;
+					}
+				}
 			} else
 			{
 				ArrayList<Track> tracksForDayIndex = getTracks(dayIndex);
 				spinAdapter = new TrackAdapter(this, R.layout.sherlock_spinner_item,
 					android.R.id.text1, tracksForDayIndex);
+				for(int i = 0; i <= tracksForDayIndex.size(); i++) {
+					if(tracksForDayIndex.get(i).getName().equals(groupItemName)) {
+						navItemPos = i;
+						break;
+					}
+				}
 			}
-			
+
 			actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_LIST);
 			actionBar.setDisplayShowTitleEnabled(false);
 			actionBar.setListNavigationCallbacks(spinAdapter, this);
-			actionBar.setSelectedNavigationItem(0);//spinAdapter.getPositionOfTrack(groupItemName));
+			actionBar.setSelectedNavigationItem(navItemPos);
 		}
 
 		actionBar.setDisplayHomeAsUpEnabled(true);
