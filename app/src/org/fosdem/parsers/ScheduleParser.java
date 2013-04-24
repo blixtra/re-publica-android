@@ -67,6 +67,15 @@ public class ScheduleParser extends BaseParser {
 	// Person
 	public static final String PERSON = "person";
 
+	// Speakers
+	public static final String SPEAKERS = "speakers";
+	public static final String SPEAKER = "speakers";
+	public static final String FULL_NAME = "fullname";
+	public static final String PICTURE = "picture";
+	public static final String BIOGRAPHY = "biography";
+	public static final String POSITION = "position";
+	public static final String ORGANIZATION = "organization";
+
 	// Links
 	public static final String LINK = "link";
 	public static final String HREF = "href";
