@@ -57,7 +57,7 @@ public class Main extends SherlockActivity implements ParserEventListener, OnCli
 
 	public int counter = 0;
 	protected TextView tvProgress = null, tvDbVer = null;
-	protected Button btnDay1, btnDay2, btnSearch, btnFavorites;
+	protected Button btnDay1, btnDay2, btnDay3, btnSearch, btnFavorites;
 	protected Intent service;
 
 	private BroadcastReceiver favoritesChangedReceiver = new BroadcastReceiver() {
@@ -112,6 +112,8 @@ public class Main extends SherlockActivity implements ParserEventListener, OnCli
 		btnDay1.setOnClickListener(this);
 		btnDay2 = (Button) findViewById(R.id.btn_day_2);
 		btnDay2.setOnClickListener(this);
+		btnDay3 = (Button) findViewById(R.id.btn_day_3);
+		btnDay3.setOnClickListener(this);
 		btnSearch = (Button) findViewById(R.id.btn_search);
 		btnSearch.setOnClickListener(this);
 		btnFavorites = (Button) findViewById(R.id.btn_favorites);
@@ -141,6 +143,7 @@ public class Main extends SherlockActivity implements ParserEventListener, OnCli
 			count = dbAdapter.getEventCount();
 			btnDay1.setEnabled(count > 0);
 			btnDay2.setEnabled(count > 0);
+			btnDay3.setEnabled(count > 0);
 		} finally {
 			dbAdapter.close();
 		}

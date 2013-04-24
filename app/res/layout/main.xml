@@ -47,13 +47,19 @@
                         style="@style/day_button"
                         android:id="@+id/btn_day_1"
                         android:drawableStart="@drawable/content_event"
-                        android:text="@string/main_saturday" />
+                        android:text="@string/main_monday" />
 
                     <Button
                         style="@style/day_button"
                         android:id="@+id/btn_day_2"
                         android:drawableStart="@drawable/content_event"
-                        android:text="@string/main_sunday" />
+                        android:text="@string/main_tuesday" />
+
+                    <Button
+                        style="@style/day_button"
+                        android:id="@+id/btn_day_3"
+                        android:drawableStart="@drawable/content_event"
+                        android:text="@string/main_wednesday" />
 
                 </LinearLayout>
 
