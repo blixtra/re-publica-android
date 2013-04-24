@@ -9,19 +9,14 @@ import org.fosdem.db.DBAdapter;
 import org.fosdem.listeners.ParserEventListener;
 import org.fosdem.util.StringUtil;
 
-import com.actionbarsherlock.app.SherlockActivity;
-import com.actionbarsherlock.view.Menu;
-import com.actionbarsherlock.view.MenuItem;
-import com.actionbarsherlock.view.MenuInflater;
-
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.DialogInterface.OnMultiChoiceClickListener;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.content.DialogInterface.OnMultiChoiceClickListener;
 import android.content.pm.ActivityInfo;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
@@ -35,6 +30,11 @@ import android.view.ViewConfiguration;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.actionbarsherlock.app.SherlockActivity;
+import com.actionbarsherlock.view.Menu;
+import com.actionbarsherlock.view.MenuInflater;
+import com.actionbarsherlock.view.MenuItem;
 
 public class Main extends SherlockActivity implements ParserEventListener, OnClickListener {
 	public static final String LOG_TAG = Main.class.getName();
@@ -249,6 +249,9 @@ public class Main extends SherlockActivity implements ParserEventListener, OnCli
 		case R.id.btn_day_2:
 			showTracksForDay(2);
 			break;
+		case R.id.btn_day_3:
+			showTracksForDay(3);
+			break;
 		case R.id.btn_search:
 			onSearchRequested();
 			break;
@@ -326,6 +329,7 @@ public class Main extends SherlockActivity implements ParserEventListener, OnCli
 					long count = db.getEventCount();
 					btnDay1.setEnabled(count > 0);
 					btnDay2.setEnabled(count > 0);
+					btnDay3.setEnabled(count > 0);
 				} finally {
 					db.close();
 				}
