@@ -24,7 +24,6 @@ import android.text.Html;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewConfiguration;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.actionbarsherlock.app.SherlockActivity;
@@ -102,8 +101,8 @@ public class DisplayEvent extends SherlockActivity {
 			if (msg == null)
 				return;
 			if (msg.what == MAPREADY) {
-				ImageView iv = (ImageView) findViewById(R.id.room_image);
-				iv.setImageDrawable(roomImageDrawable);
+				// ImageView iv = (ImageView) findViewById(R.id.room_image);
+				// iv.setImageDrawable(roomImageDrawable);
 				// tv.setText("Fetched "+counter+" events.");
 			}
 		}
@@ -211,8 +210,8 @@ public class DisplayEvent extends SherlockActivity {
 
 		// setImageViewImage(R.id.room_image,
 		// StringUtil.roomNameToURL(event.getRoom()));
-		prefetchImageViewImageAndShowIt(StringUtil.roomNameToURL(event.getRoom()),
-				StringUtil.roomNameToFilename(event.getRoom()));
+//		prefetchImageViewImageAndShowIt(StringUtil.roomNameToURL(event.getRoom()),
+//				StringUtil.roomNameToFilename(event.getRoom()));
 	}
 
 	@Override

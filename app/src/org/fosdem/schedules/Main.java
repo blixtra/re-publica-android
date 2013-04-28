@@ -204,7 +204,7 @@ public class Main extends SherlockActivity implements ParserEventListener, OnCli
 
 					public void onClick(DialogInterface dialog, int which) {
 						// if none selected, skip
-						if (!(selection[0] || selection[1]))
+						if (!(selection[0]))
 							return;
 
 						ConnectivityManager connMgr = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
@@ -213,7 +213,7 @@ public class Main extends SherlockActivity implements ParserEventListener, OnCli
 							// start updater if network is available
 							final Thread t = new Thread(new BackgroundUpdater(
 									handler, Main.this, getApplicationContext(),
-									selection[0], selection[1]));
+									selection[0], false));
 							t.start();
 						} else {
 							// no internet connection available
@@ -334,7 +334,7 @@ public class Main extends SherlockActivity implements ParserEventListener, OnCli
 					db.close();
 				}
 				break;
-			case ROOMIMGSTART:
+			/*case ROOMIMGSTART:
 				tvProgress.setText("Downloading room images...");
 				tvProgress.setVisibility(View.VISIBLE);
 				break;
@@ -344,7 +344,7 @@ public class Main extends SherlockActivity implements ParserEventListener, OnCli
 				tvProgress.setVisibility(View.VISIBLE);
 				toast(doneRooms);
 				break;
-			/*case LOAD_BG_START:
+			case LOAD_BG_START:
 				Display display = ((WindowManager) getSystemService(WINDOW_SERVICE)).getDefaultDisplay();
 				Main.this.setRequestedOrientation(display.getOrientation());
 				break;
