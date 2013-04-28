@@ -31,10 +31,10 @@
     <string name="synchronize_title">Synchronize</string>
     <string name="synchronize_description">Synchronizes the schedule with the one from re:publica online.\n\nYou need a connection to the Internet for this to work.</string>
     <string name="db_ver">Database last updated:</string>
-    <string name="about_text1">Re:publica Schedule application</string>
-    <string name="about_text2">Programmed by:\nMichaël Uyttersprot, Pieter Iserbyt and Christophe Vandeplas. Contributors: Christopher Orr and Raphael Kallensee.</string>
-    <string name="about_text1">Adapted for Re:publica by Chris Kühl and Endocode AG</string>
-    <string name="about_text3">Licensed under GPL. Source available at https://github.com/blixtra/re-publica-android. The Re:publica logo and other artwork are licensed under a TBD license.</string>
+    <string name="about_text1">re:publica 13 Schedule App</string>
+    <string name="about_text2">Programmed by:\nMichaël Uyttersprot, Pieter Iserbyt and Christophe Vandeplas. Contributors: Christopher Orr, Raphael Kallensee, Chris Kühl.</string>
+    <string name="about_text4">Adapted for re:publica by &lt;a href="http://endocode.com" target="_blank"&gt;endocode AG&lt;/a&gt;</string>
+    <string name="about_text3">Licensed under GPL. Source available at https://github.com/blixtra/re-publica-android. re:publica logo and artwork property of republica GmbH, all rights reserved. All other artwork licensed under a CC-BY-SA 2.0 Belgium License.</string>
     <string name="favorites">Favorites</string>
     <string name="favorites_event_removed">Event removed from favorites</string>
     <string name="favorites_event_added">Event added to favorites</string>

@@ -24,6 +24,7 @@ import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.text.Html;
 import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -180,12 +181,17 @@ public class Main extends SherlockActivity implements ParserEventListener, OnCli
 	private Dialog createAboutDialog() {
 		final AlertDialog.Builder builder = new AlertDialog.Builder(this);
 		final View view = getLayoutInflater().inflate(R.layout.about, null, false);
+		final TextView tv = (TextView) view.findViewById(R.id.about_text4_id);
+		if(tv != null)
+			tv.setText(Html.fromHtml(getString(R.string.about_text4)));
 		builder.setTitle(getString(R.string.app_name));
 		builder.setIcon(R.drawable.action_about);
 		builder.setView(view);
 		builder.setPositiveButton(getString(android.R.string.ok), null);
 		builder.setCancelable(true);
-		return builder.create();
+
+		final AlertDialog ad = builder.create();
+		return ad;
 	}
 
 	/**
