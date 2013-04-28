@@ -2,7 +2,7 @@
 
 <resources>
     <string name="hello">Hello World, Main!</string>
-    <string name="app_name">Re:publica</string>
+    <string name="app_name">re:publica 13</string>
 
     <!-- action bar -->
     <string name="menu_favorites">Favorites</string>
@@ -22,12 +22,12 @@
     <string name="main_search">Search</string>
 
     <string name="search_label">Search</string>
-    <string name="settings_description">Re:publica search</string>
+    <string name="settings_description">re:publica search</string>
     <string name="menu_test_display_event">Display event</string>
     <string name="menu_prefetch_rooms">Prefetch Maps</string>
     <string name="synchronize_button">Synchronize</string>
     <string name="synchronize_title">Synchronize</string>
-    <string name="synchronize_description">Synchronizes the schedule with the one from Re:publica online.\n\nYou need a connection to the Internet for this to work.</string>
+    <string name="synchronize_description">Synchronizes the schedule with the one from re:publica online.\n\nYou need a connection to the Internet for this to work.</string>
     <string name="db_ver">Database last updated:</string>
     <string name="about_text1">Re:publica Schedule application</string>
     <string name="about_text2">Programmed by:\nMichaël Uyttersprot, Pieter Iserbyt and Christophe Vandeplas. Contributors: Christopher Orr and Raphael Kallensee.</string>
