@@ -18,6 +18,7 @@ import android.content.DialogInterface.OnMultiChoiceClickListener;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.ActivityInfo;
+import android.graphics.Paint;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
@@ -57,7 +58,7 @@ public class Main extends SherlockActivity implements ParserEventListener, OnCli
 
 	public int counter = 0;
 	protected TextView tvProgress = null, tvDbVer = null;
-	protected Button btnDay1, btnDay2, btnDay3, btnSearch, btnFavorites;
+	protected Button btnDay1, btnDay2, btnDay3, btnRooms, btnSpeakers, btnSearch, btnFavorites;
 	protected Intent service;
 
 	private BroadcastReceiver favoritesChangedReceiver = new BroadcastReceiver() {
@@ -114,6 +115,11 @@ public class Main extends SherlockActivity implements ParserEventListener, OnCli
 		btnDay2.setOnClickListener(this);
 		btnDay3 = (Button) findViewById(R.id.btn_day_3);
 		btnDay3.setOnClickListener(this);
+		btnRooms = (Button) findViewById(R.id.btn_rooms);
+		btnRooms.setOnClickListener(this);
+		btnSpeakers = (Button) findViewById(R.id.btn_speakers);
+		btnSpeakers.setPaintFlags(btnSpeakers.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
+		//btnSpeakers.setOnClickListener(this);
 		btnSearch = (Button) findViewById(R.id.btn_search);
 		btnSearch.setOnClickListener(this);
 		btnFavorites = (Button) findViewById(R.id.btn_favorites);
@@ -144,6 +150,8 @@ public class Main extends SherlockActivity implements ParserEventListener, OnCli
 			btnDay1.setEnabled(count > 0);
 			btnDay2.setEnabled(count > 0);
 			btnDay3.setEnabled(count > 0);
+			btnRooms.setEnabled(count > 0);
+			btnSpeakers.setEnabled(false);
 		} finally {
 			dbAdapter.close();
 		}
@@ -252,6 +260,12 @@ public class Main extends SherlockActivity implements ParserEventListener, OnCli
 		case R.id.btn_day_3:
 			showTracksForDay(3);
 			break;
+		case R.id.btn_rooms:
+			showRooms();
+			break;
+		case R.id.btn_speakers:
+			//showSpeakers();
+			break;
 		case R.id.btn_search:
 			onSearchRequested();
 			break;
@@ -330,6 +344,8 @@ public class Main extends SherlockActivity implements ParserEventListener, OnCli
 					btnDay1.setEnabled(count > 0);
 					btnDay2.setEnabled(count > 0);
 					btnDay3.setEnabled(count > 0);
+					btnRooms.setEnabled(count > 0);
+					btnSpeakers.setEnabled(false);
 				} finally {
 					db.close();
 				}
@@ -368,6 +384,13 @@ public class Main extends SherlockActivity implements ParserEventListener, OnCli
 		Log.d(LOG_TAG, "showTracksForDay(" + day + ");");
 		Intent i = new Intent(this, TrackListActivity.class);
 		i.putExtra(TrackListActivity.DAY_INDEX, day);
+		startActivity(i);
+	}
+
+	public void showRooms() {
+		Log.d(LOG_TAG, "showRoomsForDay();");
+		Intent i = new Intent(this, RoomListActivity.class);
+		i.putExtra(RoomListActivity.DAY_INDEX, 1);
 		startActivity(i);
 	}
 

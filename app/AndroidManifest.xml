@@ -51,6 +51,14 @@
         </activity>
 
         <activity
+            android:name="org.fosdem.schedules.RoomListActivity"
+            android:theme="@style/FosdemTheme">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="org.fosdem.schedules.Main" />
+        </activity>
+
+        <activity
             android:name="org.fosdem.schedules.TrackListActivity"
             android:theme="@style/FosdemTheme">
             <meta-data

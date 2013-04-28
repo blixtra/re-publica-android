@@ -62,12 +62,31 @@
                         android:id="@+id/btn_day_3"
                         android:drawableStart="@drawable/content_event"
                         android:text="@string/main_wednesday" />
+                </LinearLayout>
 
+                <LinearLayout
+                    android:id="@+id/btn_box_middle"
+                    android:layout_width="fill_parent"
+                    android:orientation="horizontal"
+                    android:layout_marginBottom="10dp"
+                    android:weightSum="2">
+                    <Button
+                        style="@style/day_button"
+                        android:id="@+id/btn_rooms"
+                        android:text="@string/main_rooms"
+                        android:layout_marginRight="10dp"
+                        android:layout_width="0dp"
+                        android:layout_weight="1"/>
+                    <Button
+                        style="@style/day_button"
+                        android:id="@+id/btn_speakers"
+                        android:text="@string/main_speakers"
+                        android:layout_width="0dp"
+                        android:layout_weight="1"/>
                 </LinearLayout>
 
                 <LinearLayout
                     android:id="@+id/btn_box_two"
-                    android:layout_below="@id/btn_box"
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
                     android:orientation="vertical">

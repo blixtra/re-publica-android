@@ -18,6 +18,8 @@
     <string name="main_monday">Mon</string>
     <string name="main_tuesday">Tues</string>
     <string name="main_wednesday">Wed</string>
+    <string name="main_rooms">Rooms</string>
+    <string name="main_speakers">Speakers</string>
     <string name="main_favorites">Favorites</string>
     <string name="main_search">Search</string>
 
