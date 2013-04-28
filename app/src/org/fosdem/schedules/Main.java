@@ -53,8 +53,8 @@ public class Main extends SherlockActivity implements ParserEventListener, OnCli
 	protected static final int DIALOG_ABOUT = 0;
 	protected static final int DIALOG_UPDATE = 1;
 
-	public static final String PREFS = "org.fosdem";
-	public static final String XML_URL = "http://blixtra.org/public/republica/schedule-data.xml";
+	public static final String PREFS = "de.re-publica13";
+	public static final String XML_URL = "http://re-publica.de/schedule-data.xml";
 	public static final String ROOM_IMG_URL_BASE = "http://fosdem.org/2012/map/room/";
 
 	public int counter = 0;

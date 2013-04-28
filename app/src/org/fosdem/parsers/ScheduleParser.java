@@ -47,7 +47,7 @@ public class ScheduleParser extends BaseParser {
 	public static final String NAME = "name";
 
 	// Event
-	public static final String EVENT = "session";
+	public static final String EVENT = "event";
 	public static final String ID = "id";
 	public static final String DURATION = "duration";
 	public static final String TAG = "tag";
