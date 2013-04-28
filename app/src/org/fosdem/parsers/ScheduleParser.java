@@ -20,11 +20,7 @@ import org.xmlpull.v1.XmlPullParser;
 import org.xmlpull.v1.XmlPullParserException;
 import org.xmlpull.v1.XmlPullParserFactory;
 
-import android.annotation.TargetApi;
-import android.os.Build;
-
 //TODO eMich - persons and links need to be added to the parser.
-@TargetApi(Build.VERSION_CODES.GINGERBREAD)
 public class ScheduleParser extends BaseParser {
 
 	public static final String LOGTAG = ScheduleParser.class.getName();
@@ -291,7 +287,7 @@ public class ScheduleParser extends BaseParser {
 						if (xpp.getAttributeName(i).equals(ID)) {
 							// Deal with empty ids in person tag
 							String idStr = xpp.getAttributeValue(i);
-							if(!idStr.isEmpty()) {
+							if(idStr.length() > 0) {
 								id = Integer.parseInt(idStr);
 							} else {
 								return persons;
