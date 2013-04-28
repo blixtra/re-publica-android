@@ -7,14 +7,13 @@
     <ImageView
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
-        android:src="@drawable/home_visual"
+        android:src="@drawable/republica_bg"
         android:scaleType="centerCrop" />
 
     <RelativeLayout
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
-        android:orientation="vertical"
-        android:background="@drawable/main_header_gradient">
+        android:orientation="vertical">
 
         <ScrollView
             android:id="@+id/button_scroll"
@@ -32,11 +31,11 @@
                 android:paddingBottom="20dp">
 
                 <ImageView
-                    android:layout_width="fill_parent"
-                    android:layout_height="wrap_content"
-                    android:src="@drawable/fosdem"
-                    android:scaleType="centerInside"
-                    android:layout_marginBottom="10dp" />
+					android:layout_width="fill_parent"
+					android:layout_height="wrap_content"
+					android:src="@drawable/republica_banner"
+					android:scaleType="fitCenter"
+					android:layout_marginBottom="10dp" />
 
                 <LinearLayout
                     android:id="@+id/btn_box"
@@ -47,13 +46,16 @@
                         style="@style/day_button"
                         android:id="@+id/btn_day_1"
                         android:drawableStart="@drawable/content_event"
-                        android:text="@string/main_monday" />
+                        android:text="@string/main_monday"
+                        android:layout_marginBottom="10dp"/>
 
                     <Button
                         style="@style/day_button"
                         android:id="@+id/btn_day_2"
                         android:drawableStart="@drawable/content_event"
-                        android:text="@string/main_tuesday" />
+                        android:text="@string/main_tuesday"
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginRight="10dp" />
 
                     <Button
                         style="@style/day_button"
@@ -73,7 +75,8 @@
                         style="@style/main_button"
                         android:id="@+id/btn_favorites"
                         android:drawableStart="@drawable/rating_important"
-                        android:text="@string/main_favorites" />
+                        android:text="@string/main_favorites"
+                        android:layout_marginBottom="10dp"/>
                     <Button
                         style="@style/main_button"
                         android:id="@+id/btn_search"
@@ -92,7 +95,7 @@
             android:gravity="bottom">
             <LinearLayout
                 android:layout_width="fill_parent"
-                android:alpha="0.5"
+                android:alpha="0.7"
                 android:background="#ffffff"
                 android:padding="5dp"
                 android:orientation="vertical"
