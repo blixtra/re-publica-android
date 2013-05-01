@@ -2,7 +2,7 @@ package org.fosdem.schedules;
 
 import java.util.ArrayList;
 
-import org.fosdem.R;
+import de.republica13.R;
 import org.fosdem.db.DBAdapter;
 import org.fosdem.pojo.Room;
 import org.fosdem.util.RoomAdapter;

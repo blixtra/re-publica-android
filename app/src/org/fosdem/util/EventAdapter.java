@@ -3,7 +3,7 @@ package org.fosdem.util;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-import org.fosdem.R;
+import de.republica13.R;
 import org.fosdem.pojo.Event;
 
 import com.emilsjolander.components.stickylistheaders.StickyListHeadersAdapter;

@@ -1,6 +1,6 @@
 package org.fosdem.views;
 
-import org.fosdem.R;
+import de.republica13.R;
 import org.fosdem.db.DBAdapter;
 import org.fosdem.pojo.Event;
 import org.fosdem.util.UIUtil;
