@@ -56,6 +56,9 @@ public abstract class BaseParser {
 			conn.setAllowUserInteraction(false);
 			conn.setInstanceFollowRedirects(true);
 			conn.setRequestMethod("GET");
+			// This avoid connect throwing a Too many redirects exception.
+			conn.setRequestProperty("User-Agent", "Mozilla/5.0 (Macintosh; U; Intel Mac OS X 10.4; en-US; " +
+												  "rv:1.9.2.2) Gecko/20100316 Firefox/3.6.2");
 
 			conn.connect();
 			response = conn.getResponseCode();
