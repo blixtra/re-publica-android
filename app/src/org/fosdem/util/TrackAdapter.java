@@ -42,10 +42,10 @@ public class TrackAdapter extends ArrayAdapter<Track> implements SpinnerAdapter 
 		if (track != null) {
 			TextView title = (TextView) v.findViewById(textViewResourceId);
 			title.setText(track.getName());
-			TextView type = (TextView) v.findViewById(R.id.type);
-			if (type != null) {
-				type.setText(track.getType());
-			}
+//			TextView type = (TextView) v.findViewById(R.id.type);
+//			if (type != null) {
+//				type.setText(track.getType());
+//			}
 		}
 
 		return v;

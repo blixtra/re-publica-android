@@ -7,9 +7,9 @@
         style="@style/tracklist_title"
         android:id="@+id/title" />
 
-    <TextView
-        style="@style/tracklist_subtitle"
-        android:id="@+id/type"
-        android:layout_below="@id/title" />
+<!--     <TextView -->
+<!--         style="@style/tracklist_subtitle" -->
+<!--         android:id="@+id/type" -->
+<!--         android:layout_below="@id/title" /> -->
 
 </RelativeLayout>
