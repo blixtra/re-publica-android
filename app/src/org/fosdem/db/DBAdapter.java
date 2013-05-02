@@ -1,6 +1,8 @@
 package org.fosdem.db;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.Date;
 import java.util.List;
 
@@ -402,11 +404,18 @@ public class DBAdapter extends ContentProvider {
 		int[] personIds = getIntFromCursor(c, PERSONID);
 
 		ArrayList<Person> persons = new ArrayList<Person>();
+
 		for (int personId : personIds) {
 			Person person = getPersonById(personId);
 			if (person != null)
 				persons.add(person);
 		}
+
+		Collections.sort(persons, new Comparator<Person>() {
+	        public int compare(Person p1, Person p2) {
+	            return p1.toString().compareToIgnoreCase(p2.toString());
+	        }
+	    });
 
 		return persons;
 	}
@@ -423,9 +432,15 @@ public class DBAdapter extends ContentProvider {
 				events.add(event);
 		}
 
+		Collections.sort(events, new Comparator<Event>() {
+	        public int compare(Event e1, Event e2) {
+	            return e1.getTitle().compareToIgnoreCase(e2.getTitle());
+	        }
+	    });
+
 		return events;
 	}
-	
+
 	protected Person getPersonById(int id) {
 		Cursor c = db.query(TABLE_PERSONS, new String[] { NAME, PICTURE,
 				BIOGRAPHY, POSITION, ORGANIZATION, WEBSITE_ORGANIZATION,
@@ -512,14 +527,14 @@ public class DBAdapter extends ContentProvider {
 
 	public String[] getRoomsByDayIndex(int dayIndex) {
 		Cursor roomCursor = db.query(true, TABLE_EVENTS, new String[] { ROOM },
-				DAYINDEX + "=" + dayIndex, null, null, null, START, null);
+				DAYINDEX + "=" + dayIndex, null, null, null, ROOM, null);
 		return getStringFromCursor(roomCursor, ROOM);
 	}
 
 	public String[] getTracksByDayIndex(int dayIndex) {
 		Cursor trackCursor = db.query(true, TABLE_EVENTS,
 				new String[] { TRACK }, DAYINDEX + "=" + dayIndex, null, null,
-				null, null, null);
+				null, TRACK, null);
 		return getStringFromCursor(trackCursor, TRACK);
 	}
 
