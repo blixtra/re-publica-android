@@ -22,9 +22,6 @@ import org.xmlpull.v1.XmlPullParserFactory;
 
 //TODO eMich - persons and links need to be added to the parser.
 public class ScheduleParser extends BaseParser {
-
-	public static final String LOGTAG = ScheduleParser.class.getName();
-
 	// Conference
 	public static final String SCHEDULE = "schedule";
 	public static final String CONFERENCE = "conference";
@@ -65,12 +62,18 @@ public class ScheduleParser extends BaseParser {
 
 	// Speakers
 	public static final String SPEAKERS = "speakers";
-	public static final String SPEAKER = "speakers";
+	public static final String SPEAKER = "speaker";
+	public static final String SPEAKER_ID = "persons";
 	public static final String FULL_NAME = "fullname";
 	public static final String PICTURE = "picture";
 	public static final String BIOGRAPHY = "biography";
 	public static final String POSITION = "position";
 	public static final String ORGANIZATION = "organization";
+	public static final String ORGANIZATION_WEBSITE = "organization_website";
+	public static final String WEBSITE_PERSONAL = "website_personal";
+	public static final String FACEBOOK = "facebook";
+	public static final String TWITTER = "twitter";
+	public static final String GOOGLE = "google";
 
 	// Links
 	public static final String LINK = "link";
@@ -90,6 +93,7 @@ public class ScheduleParser extends BaseParser {
 			Event event = null;
 			List<Event> events = null;
 			List<Room> rooms = null;
+			List<Person> speakers = null;
 			Conference conference = null;
 
 			Day day = null;
@@ -143,6 +147,19 @@ public class ScheduleParser extends BaseParser {
 						Event e = parseEvent(xpp, day);
 						e.setId(id);
 						room.addEvent(e);
+					} else if (xpp.getName().equals(SPEAKERS)) {
+						speakers = new ArrayList<Person>();
+					} else if (xpp.getName().equals(SPEAKER)) {
+						int id = -1;
+						for (int i = 0; i < xpp.getAttributeCount(); i++) {
+							if (xpp.getAttributeName(i).equals(SPEAKER_ID)) {
+								id = Integer.parseInt(xpp.getAttributeValue(i));
+							}
+						}
+						xpp.next();
+						Person speaker = parseSpeaker(xpp);
+						speaker.setId(id);
+						speakers.add(speaker);
 					}
 				} else if (eventType == XmlPullParser.END_TAG) {
 					launchEvent(xpp.getName(), ParserEventListener.TAG_CLOSED);
@@ -157,6 +174,9 @@ public class ScheduleParser extends BaseParser {
 					} else if (xpp.getName().equals(EVENT)) {
 						events.add(event);
 						event = null;
+					} else if (xpp.getName().equals(SPEAKERS)) {
+						conference.addSpeakers(speakers);
+						speakers = null;
 					}
 				}
 				eventType = xpp.next();
@@ -166,6 +186,49 @@ public class ScheduleParser extends BaseParser {
 			throw new ParserException(e);
 		}
 
+	}
+
+	private Person parseSpeaker(XmlPullParser xpp)
+		throws XmlPullParserException, IOException, ParseException {
+	String content = null;
+	int eventType = xpp.getEventType();
+	Person person = new Person();
+	while (eventType != XmlPullParser.END_DOCUMENT) {
+		if (eventType == XmlPullParser.START_TAG) {
+			launchEvent(xpp.getName(), ParserEventListener.TAG_OPEN);
+			content = null;
+
+		} else if (eventType == XmlPullParser.END_TAG) {
+			launchEvent(xpp.getName(), ParserEventListener.TAG_CLOSED);
+			if (xpp.getName().equals(FULL_NAME)) {
+				person.setName(content);
+			} else if (xpp.getName().equals(PICTURE)) {
+				person.setPictureUrl(content);
+			} else if (xpp.getName().equals(BIOGRAPHY)) {
+				person.setBiography(content);
+			} else if (xpp.getName().equals(POSITION)) {
+				person.setPosition(content);
+			} else if (xpp.getName().equals(ORGANIZATION)) {
+				person.setOrganization(content);
+			} else if (xpp.getName().equals(ORGANIZATION_WEBSITE)) {
+				person.setOrgWebsite(content);
+			} else if (xpp.getName().equals(WEBSITE_PERSONAL)) {
+				person.setPersonalWebsite(content);
+			} else if (xpp.getName().equals(FACEBOOK)) {
+				person.setFacebook(content);
+			} else if (xpp.getName().equals(TWITTER)) {
+				person.setTwitter(content);
+			} else if (xpp.getName().equals(GOOGLE)) {
+				person.setGoogle(content);
+			} else if (xpp.getName().equals(SPEAKER)) {
+				return person;
+			}
+		} else if (eventType == XmlPullParser.TEXT) {
+			content = xpp.getText();
+		}
+		eventType = xpp.next();
+	}
+	return null;
 	}
 
 	public Conference parseConference(XmlPullParser xpp)
@@ -226,7 +289,7 @@ public class ScheduleParser extends BaseParser {
 					}
 					event.setId(id);
 				} else if (xpp.getName().equals(PERSONS)) {
-					ArrayList<Person> persons = parsePersons(xpp);
+					ArrayList<Person> persons = parsePerson(xpp);
 					event.setPersons(persons);
 				}
 				content = null;
@@ -272,7 +335,7 @@ public class ScheduleParser extends BaseParser {
 		return null;
 	}
 
-	protected ArrayList<Person> parsePersons(XmlPullParser xpp)
+	protected ArrayList<Person> parsePerson(XmlPullParser xpp)
 			throws XmlPullParserException, IOException {
 		String content = null;
 		int eventType = xpp.getEventType();

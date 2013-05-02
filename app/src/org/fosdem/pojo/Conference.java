@@ -20,6 +20,8 @@ package org.fosdem.pojo;
  */
 
 
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Date;
 
 public class Conference {
@@ -43,6 +45,7 @@ public class Conference {
 	private int days;
 	private String day_change;
 	private String timeslot_duration;
+	private ArrayList<Person> speakers = new ArrayList<Person>();
 
 	public String getTitle() {
 		return title;
@@ -98,5 +101,10 @@ public class Conference {
 	public void setTimeslot_duration(String timeslotDuration) {
 		timeslot_duration = timeslotDuration;
 	}
-
+	public ArrayList<Person> getSpeakers() {
+		return speakers;
+	}
+	public void addSpeakers(Collection<Person> speakers) {
+		this.speakers.addAll(speakers);
+	}
 }

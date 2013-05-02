@@ -166,10 +166,19 @@ public class DBAdapter extends ContentProvider {
 	public static final String PERSONID = "personid";
 	public static final String EVENTID = "eventid";
 	public static final String PERSONSEARCH = "personsearch";
-
+	public static final String PICTURE = "picture";
+	public static final String BIOGRAPHY = "biography";
+	public static final String POSITION = "position";
+	public static final String ORGANIZATION = "organization";
+	public static final String WEBSITE_ORGANIZATION = "website_organization";
+	public static final String WEBSITE_PERSONAL = "website_personal";
+	public static final String FACEBOOK = "facebook";
+	public static final String TWITTER = "twitter";
+	public static final String GOOGLE = "google";
+	
 	// TODO eMich - replace fields and table
 	protected static final String DB_CREATE_EVENTS = "create table events (id integer primary key,start long,duration integer,room text,tag text,title text,subtitle text,track text,eventtype text,language text,abstract text,description text,dayindex integer,personsearch text)";
-	protected static final String DB_CREATE_PERSONS = "create table persons (id integer primary key,name text)";
+	protected static final String DB_CREATE_PERSONS = "create table persons (id integer primary key, name text, picture text, biography text, position text, organization text, website_organization text, website_personal text, facebook text, twitter text, google text)";
 	protected static final String DB_CREATE_PERSON_EVENT = "create table person_event (id integer primary key autoincrement,personid integer,eventid integer)";
 	protected static final String DB_CREATE_FAVORITES = "create table favorites(id integer primary key,start long)";
 
@@ -228,13 +237,14 @@ public class DBAdapter extends ContentProvider {
 			clearEvents();
 			clearPersons();
 			clearPersonEventLinks();
+			persistPersons(s.getConference().getSpeakers());
 			int count = 0;
 			for (Day day : s.getDays()) {
 				for (Room room : day.getRooms()) {
 					for (Event event : room.getEvents()) {
 						System.out.println("Event! "+ event);
 						addEvent(event);
-						persistPersons(event.getPersons());
+//						persistPersons(event.getPersons());
 						persistPersonEventLink(event);
 						final Message msg = new Message();
 						msg.what = MSG_EVENT_STORED;
@@ -266,6 +276,16 @@ public class DBAdapter extends ContentProvider {
 		ContentValues initialValues = new ContentValues();
 		initialValues.put(ID, person.getId());
 		initialValues.put(NAME, person.getName());
+		initialValues.put(PICTURE, person.getPictureUrl());
+		initialValues.put(BIOGRAPHY, person.getBiography());
+		initialValues.put(POSITION, person.getPosition());
+		initialValues.put(ORGANIZATION, person.getOrganization());
+		initialValues.put(WEBSITE_ORGANIZATION, person.getOrgWebsite());
+		initialValues.put(WEBSITE_PERSONAL, person.getPersonalWebsite());
+		initialValues.put(FACEBOOK, person.getFacebook());
+		initialValues.put(TWITTER, person.getTwitter());
+		initialValues.put(GOOGLE, person.getGoogle());
+		
 		return db.insert(TABLE_PERSONS, null, initialValues);
 	}
 
@@ -391,13 +411,47 @@ public class DBAdapter extends ContentProvider {
 		return persons;
 	}
 
+	protected ArrayList<Event> getEventsForPerson(int id) {
+		Cursor c = db.query(TABLE_JOIN_PERSON_EVENT, new String[] { EVENTID },
+				PERSONID + " = '" + id + "'", null, null, null, null);
+		int[] eventIds = getIntFromCursor(c, EVENTID);
+
+		ArrayList<Event> events = new ArrayList<Event>();
+		for (int eventId : eventIds) {
+			Event event = getEventById(eventId);
+			if (event != null)
+				events.add(event);
+		}
+
+		return events;
+	}
+	
 	protected Person getPersonById(int id) {
-		Cursor c = db.query(TABLE_PERSONS, new String[] { NAME }, ID + " = "
+		Cursor c = db.query(TABLE_PERSONS, new String[] { NAME, PICTURE,
+				BIOGRAPHY, POSITION, ORGANIZATION, WEBSITE_ORGANIZATION,
+				WEBSITE_PERSONAL, FACEBOOK, TWITTER, GOOGLE }, ID + " = "
 				+ id, null, null, null, null);
-		String[] persons = getStringFromCursor(c, NAME);
-		if (persons.length == 0)
+
+		if(c.getCount() <= 0) {
 			return null;
-		return new Person(id, persons[0]);
+		}
+
+		c.moveToFirst();
+
+		Person p = new Person();
+		p.setId(id);
+		p.setName(c.getString(c.getColumnIndex(NAME)));
+		p.setPictureUrl(c.getString(c.getColumnIndex(PICTURE)));
+		p.setBiography(c.getString(c.getColumnIndex(BIOGRAPHY)));
+		p.setPosition(c.getString(c.getColumnIndex(POSITION)));
+		p.setOrganization(c.getString(c.getColumnIndex(ORGANIZATION)));
+		p.setOrgWebsite(c.getString(c.getColumnIndex(WEBSITE_ORGANIZATION)));
+		p.setPersonalWebsite(c.getString(c.getColumnIndex(WEBSITE_PERSONAL)));
+		p.setFacebook(c.getString(c.getColumnIndex(FACEBOOK)));
+		p.setTwitter(c.getString(c.getColumnIndex(TWITTER)));
+		p.setGoogle(c.getString(c.getColumnIndex(GOOGLE)));
+
+		return p;
 	}
 
 	public String[] getRooms() {

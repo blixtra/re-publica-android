@@ -24,6 +24,15 @@ public class Person {
 
 	private int id;
 	private String name;
+	private String pictureUrl;
+	private String biography;
+	private String position;
+	private String organization;
+	private String orgWebsite;
+	private String personalWebsite;
+	private String facebook;
+	private String twitter;
+	private String google;
 
 	public Person() {
 		
@@ -47,8 +56,79 @@ public class Person {
 		this.name = name;
 	}
 	
+	public String getPictureUrl() {
+		return pictureUrl;
+	}
+
+	public void setPictureUrl(String pictureUrl) {
+		this.pictureUrl = pictureUrl;
+	}
+
+	public String getBiography() {
+		return biography;
+	}
+
+	public void setBiography(String biography) {
+		this.biography = biography;
+	}
+
+	public String getPosition() {
+		return position;
+	}
+
+	public void setPosition(String position) {
+		this.position = position;
+	}
+
+	public String getOrganization() {
+		return organization;
+	}
+
+	public void setOrganization(String organization) {
+		this.organization = organization;
+	}
+
+	public String getOrgWebsite() {
+		return orgWebsite;
+	}
+
+	public void setOrgWebsite(String orgWebsite) {
+		this.orgWebsite = orgWebsite;
+	}
+
+	public String getPersonalWebsite() {
+		return personalWebsite;
+	}
+
+	public void setPersonalWebsite(String personalWebsite) {
+		this.personalWebsite = personalWebsite;
+	}
+
+	public String getFacebook() {
+		return facebook;
+	}
+
+	public void setFacebook(String facebook) {
+		this.facebook = facebook;
+	}
+
+	public String getTwitter() {
+		return twitter;
+	}
+
+	public void setTwitter(String twitter) {
+		this.twitter = twitter;
+	}
+
+	public String getGoogle() {
+		return google;
+	}
+
+	public void setGoogle(String google) {
+		this.google = google;
+	}
+
 	public String toString() {
 		return name;
 	}
-	
 }
